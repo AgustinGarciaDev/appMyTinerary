@@ -14,7 +14,6 @@ const Cities = (props) => {
         loadCities()
     }, [])
 
-    console.log(foundCity)
     return (
 
         <ScrollView>
@@ -39,7 +38,7 @@ const Cities = (props) => {
                 </View>
             </View>
             <View style={styles.containerCities}>
-                {foundCity.map(city => <CardCity city={city} key={city._id} />)}
+                {foundCity.map(city => <CardCity navigation={props.navigation} city={city} key={city._id} />)}
             </View>
         </ScrollView>
 
@@ -103,7 +102,6 @@ const mapDispatchToProps = {
 
     loadCities: citiesActions.loadCities,
     searchCity: citiesActions.searchCity,
-
 }
 
 

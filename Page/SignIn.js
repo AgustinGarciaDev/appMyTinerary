@@ -2,7 +2,52 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, ImageBackground } from 'react-native';
 import { connect } from "react-redux";
+import userActions from '../ReduxStore/Action/userAction'
+import { useState } from 'react';
+
 const SignIn = (props) => {
+
+    const [infoUser, setInfoUser] = useState({
+        email: "",
+        password: "",
+    })
+
+    const changeValueInput = (e, campo) => {
+        setInfoUser({
+            ...infoUser,
+            [campo]: e
+        })
+    }
+
+    const sendForm = async () => {
+
+        let user = infoUser
+        if (user.email === "" || user.password === "") {
+            console.log("los campos deben estar completos")
+
+        } else {
+            console.log("entre a enviar la accion")
+            const respuesta = await props.signInUser(user)
+
+            if (respuesta) {
+                console.log("llego a la respuesta")
+                console.log(respuesta.data)
+                /*  setErrores() */
+            } else {
+                /*  toast.success("👋 Welcome", {
+                     onClose: () => {
+                         props.history.push('/')
+                     },
+ 
+                 }) */
+                console.log("Logueo exitoso")
+            }
+        }
+
+
+    }
+
+
 
     return (
         <ImageBackground style={styles.containerForm} source={{ uri: "http://baravdg.com/wp-content/uploads/2021/04/pexels-pixabay-164336-scaled.jpg" }}>
@@ -12,13 +57,18 @@ const SignIn = (props) => {
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
+                        value={infoUser.email}
+                        onChangeText={(e) => changeValueInput(e, 'email')}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder="Password"
+                        value={infoUser.password}
+                        placeholder="Password"
+                        onChangeText={(e) => changeValueInput(e, 'password')}
                     />
                 </View>
-                <Pressable style={styles.button} >
+                <Pressable onPress={sendForm} style={styles.button} >
                     <Text style={styles.text}>Sign In</Text>
                 </Pressable>
             </View>
@@ -83,4 +133,8 @@ const styles = StyleSheet.create({
 
 
 });
-export default SignIn
+
+const mapDispatchToProps = {
+    signInUser: userActions.signInUser
+}
+export default connect(null, mapDispatchToProps)(SignIn)

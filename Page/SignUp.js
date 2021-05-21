@@ -1,9 +1,69 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, ImageBackground } from 'react-native';
 import { connect } from "react-redux";
+import SelectPicker from 'react-native-form-select-picker';
+import { useState } from 'react';
+import userActions from '../ReduxStore/Action/userAction'
+import Toast from 'react-native-toast-message';
+import axios from 'axios'
 const SignUp = (props) => {
 
+    console.log(props)
+
+    const [countries, setCountries] = useState([]);
+    const [infoUser, setInfoUser] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        userPic: "",
+        country: "",
+    })
+
+
+    useEffect(() => {
+        axios.get("https://restcountries.eu/rest/v2/all")
+            .then(response => setCountries(response.data))
+            .catch(error => console.log(error))
+
+    }, [])
+
+    const changeValueInput = (e, campo) => {
+        setInfoUser({
+            ...infoUser,
+            [campo]: e
+        })
+    }
+    const sendForm = async () => {
+
+        let user = infoUser
+        if (user.firstName === "" || user.lastName === "" || user.email === "" || user.password === "" || user.userPic === "" || user.country === "") {
+            Toast.show({
+                text1: 'Los campos deben estar completos',
+                type: 'error',
+                position: 'bottom',
+            });
+
+        } else {
+            console.log("entre a enviar la accion")
+            const respuesta = await props.createUser(user)
+
+            if (respuesta) {
+                console.log("llego a la respuesta")
+                console.log(respuesta.details)
+                /*  setErrores() */
+            } else {
+                Toast.show({
+                    text1: 'Welcome👋',
+
+                });
+                props.navigation.navigate('Home')
+                console.log("Logueo exitoso")
+            }
+        }
+
+
+    }
     return (
         <ImageBackground style={styles.containerForm} source={{ uri: "http://baravdg.com/wp-content/uploads/2021/04/pexels-julius-silver-753337.jpg" }}>
             <View style={styles.form}>
@@ -11,33 +71,49 @@ const SignUp = (props) => {
                 <View>
                     <TextInput
                         style={styles.input}
-                        placeholder="Name"
+                        placeholder="First Name"
+                        value={infoUser.name}
+                        onChangeText={(e) => changeValueInput(e, 'firstName')}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder="Last Name"
+                        value={infoUser.lastName}
+                        onChangeText={(e) => changeValueInput(e, 'lastName')}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
+                        value={infoUser.email}
+                        onChangeText={(e) => changeValueInput(e, 'email')}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder="Pic Url"
+                        value={infoUser.userPic}
+                        onChangeText={(e) => changeValueInput(e, 'userPic')}
                     />
+                    <SelectPicker default="Choose a country"
+                        onValueChange={(e) => changeValueInput(e, "country")}
+                        placeholderStyle={{ color: 'black' }}
+                        label="Country"
+                        style={styles.input}
+                        placeholder='Country'
+                    >
+                        {countries.map((country) => (<SelectPicker.Item label={country.name} value={country.name} key={country.name} />))}
+                    </SelectPicker>
                     <TextInput
                         style={styles.input}
+                        value={infoUser.password}
                         placeholder="Password"
+                        onChangeText={(e) => changeValueInput(e, 'password')}
                     />
-
                 </View>
-                <Pressable style={styles.button} >
-                    <Text style={styles.text}>Sign In</Text>
+                <Pressable onPress={sendForm} style={styles.button} >
+                    <Text style={styles.text}>Sign Up</Text>
                 </Pressable>
             </View>
         </ImageBackground>
-
-
     )
 }
 const styles = StyleSheet.create({
@@ -84,7 +160,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: 'black',
         width: 120,
-        height: 40
+        height: 40,
+        zIndex: 1
     },
     text: {
         fontSize: 16,
@@ -96,4 +173,19 @@ const styles = StyleSheet.create({
 
 
 });
-export default SignUp
+
+
+const mapStateToProps = state => {
+
+    return {
+        usuarioStatus: state.user.usuarioStatus
+    }
+
+}
+
+const mapDispatchToProps = {
+    createUser: userActions.createUser
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

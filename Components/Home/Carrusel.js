@@ -21,7 +21,6 @@ const Carrusel = () => {
     ]
 
     const _renderItem = ({ item, index }) => {
-        console.log(item)
         return (
             < View key={item.id} style={styles.slide} >
                 <ImageBackground source={{ uri: item.url }} style={styles.image}>
@@ -39,7 +38,7 @@ const Carrusel = () => {
             itemWidth={400}
             renderItem={_renderItem}
             layout={"stack"}
-            layoutCardOffset={`18`}
+
         />
     )
 }

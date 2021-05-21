@@ -1,16 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Pressable } from 'react-native';
 const CardCity = (props) => {
 
-    const { nombre, url } = props.city
+    const { nombre, url, _id } = props.city
 
     return (
-
-        <View>
+        <Pressable onPress={() => props.navigation.navigate('City', { id: _id })} >
             <ImageBackground style={styles.containerCity} source={{ uri: url }} >
                 <Text style={styles.text}>{nombre}</Text>
             </ImageBackground>
-        </View>
+        </Pressable>
     )
 }
 const styles = StyleSheet.create({
