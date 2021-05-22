@@ -8,8 +8,6 @@ import Toast from 'react-native-toast-message';
 import axios from 'axios'
 const SignUp = (props) => {
 
-    console.log(props)
-
     const [countries, setCountries] = useState([]);
     const [infoUser, setInfoUser] = useState({
         firstName: "",
@@ -48,8 +46,6 @@ const SignUp = (props) => {
             const respuesta = await props.createUser(user)
             if (respuesta) {
                 console.log("")
-                /*  console.log(respuesta.details) */
-
             } else {
                 Toast.show({
                     text1: 'Welcome👋',
@@ -64,7 +60,7 @@ const SignUp = (props) => {
     return (
         <ImageBackground style={styles.containerForm} source={{ uri: "http://baravdg.com/wp-content/uploads/2021/04/pexels-julius-silver-753337.jpg" }}>
             <View style={styles.form}>
-                <Text style={styles.titleForm}>Sign In!</Text>
+                <Text style={styles.titleForm}>Sign Up!</Text>
                 <View>
                     <TextInput
                         style={styles.input}
@@ -102,6 +98,7 @@ const SignUp = (props) => {
                     <TextInput
                         style={styles.input}
                         value={infoUser.password}
+                        secureTextEntry={true}
                         placeholder="Password"
                         onChangeText={(e) => changeValueInput(e, 'password')}
                     />

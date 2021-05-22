@@ -51,7 +51,6 @@ const userActions = {
     },
 
     forzarLoginLocalStore: (usuarioLoguedo) => {
-        console.log(usuarioLoguedo)
         return async (dispatch, getState) => {
             try {
                 const response = await axios.get("https://my-tinerary2021.herokuapp.com/api/user/loginLocalStore", {
@@ -59,8 +58,7 @@ const userActions = {
                         'Authorization': 'Bearer ' + usuarioLoguedo.token
                     }
                 })
-                /*  await AsyncStorage.setItem('userLogged', JSON.stringify({ foto: response.data.respuesta.foto, name: response.data.respuesta.name }))
-                 await AsyncStorage.setItem('token', response.data.respuesta.token) */
+
                 dispatch({
                     type: 'LOGUEAR_USUARIO', payload: {
                         ...response.data.respuesta,
@@ -68,10 +66,7 @@ const userActions = {
                     }
                 })
             } catch (error) {
-                if (error.response.status === 401) {
-                    alert("HACKING ALERT")
-
-                }
+                console.log(error)
             }
         }
     }

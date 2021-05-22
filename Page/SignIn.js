@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, ImageBackground } from 'react-native';
+import { Input } from 'react-native-elements';
 import { connect } from "react-redux";
 import userActions from '../ReduxStore/Action/userAction'
 import { useState } from 'react';
@@ -24,9 +25,7 @@ const SignIn = (props) => {
         let user = infoUser
         if (user.email === "" || user.password === "") {
             console.log("los campos deben estar completos")
-
         } else {
-
             const respuesta = await props.signInUser(user)
             if (respuesta) {
                 console.log("error")
@@ -60,6 +59,7 @@ const SignIn = (props) => {
                         placeholder="Password"
                         value={infoUser.password}
                         placeholder="Password"
+                        secureTextEntry={true}
                         onChangeText={(e) => changeValueInput(e, 'password')}
                     />
                 </View>

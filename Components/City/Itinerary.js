@@ -9,7 +9,8 @@ import Carousel from 'react-native-snap-carousel';
 import { Avatar } from 'react-native-elements';
 import { ActivityIndicator } from 'react-native';
 import { Image, Button } from 'react-native-elements';
-
+import ItineraryAction from '../../ReduxStore/Action/ItineraryAction'
+import Toast from 'react-native-toast-message';
 
 const Itinerary = (props) => {
     const { itinerary: { comments, nombreItinerary, _id, authorName, duration, authorPic, hastag, precie, picBanner, offered, countryCoin, likes, userLiked } } = props
@@ -36,6 +37,39 @@ const Itinerary = (props) => {
         setBtn(!btnVisible)
         setCommentsPeople(comments)
     }
+
+
+    const likeBtn = async () => {
+        console.log("me ejecuto")
+        if (props.usuarioStatus) {
+            setLoadingHeart(false)
+            setUser(props.usuarioStatus.name)
+            const response = await props.likeHeart(_id, props.usuarioStatus.name)
+            setLike(response.likes)
+            setUsersLikes(response.usuariosLikes)
+            setHeartLike(response.btnStatus)
+            setLoadingHeart(true)
+        } else {
+            Toast.show({
+                text1: 'You must be logged in to  like an itinerary',
+                type: 'error',
+                position: 'bottom',
+            });
+        }
+    }
+
+    useEffect(() => {
+        if (props.usuarioStatus) {
+            if (usersLikes.includes(props.usuarioStatus.name)) {
+                setHeartLike(true)
+            } else {
+                setHeartLike(false)
+            }
+        } else {
+            setHeartLike(false)
+        }
+    }, [props.usuarioStatus])
+
 
     return (
         <ScrollView style={styles.containerItinerary}>
@@ -69,7 +103,11 @@ const Itinerary = (props) => {
                 </Text>
             </View>
             <View>
-                <Icon type='font-awesome-5' name="heart" size={25} color="red" />
+                <Text>{like}</Text>
+                {heartLike
+                    ? <Icon onPress={loadingHeart ? likeBtn : null} type='font-awesome-5' name="heart" size={25} color="red" />
+                    : <Icon onPress={loadingHeart ? likeBtn : null} type='font-awesome-5' name="heart" size={25} color="black" />
+                }
             </View>
             <View>
                 {!btnVisible && <Button onPress={changeStatusBtn} title={btnVisible ? "View Less" : "View More"} />}
@@ -124,4 +162,15 @@ const styles = StyleSheet.create({
 
 })
 
-export default Itinerary
+const mapStateToProps = state => {
+    return {
+        usuarioStatus: state.user.usuarioStatus
+    }
+}
+
+const mapDispatchToProps = {
+    likeHeart: ItineraryAction.likeHeart,
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Itinerary)

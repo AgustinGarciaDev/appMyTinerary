@@ -34,7 +34,6 @@ const Comments = (props) => {
                     position: 'bottom',
                 });
             } else {
-                console.log(newComment)
                 setLoadingComment(false)
                 const response = await props.addComment({ mensaje: newComment.mensaje, token: usuarioStatus.token }, id)
                 setCommentsPeople(response)
@@ -56,11 +55,10 @@ const Comments = (props) => {
     const deleteComment = async (idComentario, email) => {
         if (props.usuarioStatus) {
             if (email === props.usuarioStatus.name) {
-                const respuesta = await props.borrarComentario(idComentario, id)
+                const respuesta = await props.deleteComment(idComentario, id)
                 setCommentsPeople(respuesta)
                 Toast.show({
                     text1: 'Comment deleted successfully',
-                    type: 'sucess',
                     position: 'bottom',
                 });
 
@@ -70,7 +68,7 @@ const Comments = (props) => {
 
     const editComment = async (idComentario, comment, email) => {
         if (email === props.usuarioStatus.name) {
-            const respuesta = await props.editarComentario(id, idComentario, comment)
+            const respuesta = await props.editComment(id, idComentario, comment)
             setCommentsPeople(respuesta)
         }
     }
@@ -102,8 +100,6 @@ const styles = StyleSheet.create({
     inputComment: {
         width: "90%",
     }
-
-
 })
 
 
