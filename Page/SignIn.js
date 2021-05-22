@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, ImageBackgrou
 import { connect } from "react-redux";
 import userActions from '../ReduxStore/Action/userAction'
 import { useState } from 'react';
-
+import Toast from 'react-native-toast-message';
 const SignIn = (props) => {
 
     const [infoUser, setInfoUser] = useState({
@@ -26,21 +26,16 @@ const SignIn = (props) => {
             console.log("los campos deben estar completos")
 
         } else {
-            console.log("entre a enviar la accion")
-            const respuesta = await props.signInUser(user)
 
+            const respuesta = await props.signInUser(user)
             if (respuesta) {
-                console.log("llego a la respuesta")
-                console.log(respuesta.data)
+                console.log("error")
                 /*  setErrores() */
             } else {
-                /*  toast.success("👋 Welcome", {
-                     onClose: () => {
-                         props.history.push('/')
-                     },
- 
-                 }) */
-                console.log("Logueo exitoso")
+                Toast.show({
+                    text1: 'Welcome👋',
+                });
+                props.navigation.navigate('Home')
             }
         }
 

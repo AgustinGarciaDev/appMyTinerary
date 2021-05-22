@@ -1,4 +1,5 @@
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const userActions = {
 
@@ -11,6 +12,9 @@ const userActions = {
                 if (!response.data.success) {
                     return response.data.errores
                 }
+
+                await AsyncStorage.setItem('userLogged', JSON.stringify({ foto: response.data.respuesta.foto, name: response.data.respuesta.name }))
+                await AsyncStorage.setItem('token', response.data.respuesta.token)
                 dispatch({ type: 'LOGUEAR_USUARIO', payload: response.data.success ? response.data.respuesta : null })
             } catch (error) {
                 console.log(error)
@@ -27,7 +31,8 @@ const userActions = {
 
                     return response.data.error
                 }
-                console.log(response)
+                await AsyncStorage.setItem('userLogged', JSON.stringify({ foto: response.data.respuesta.foto, name: response.data.respuesta.name }))
+                await AsyncStorage.setItem('token', response.data.respuesta.token)
                 dispatch({ type: 'LOGUEAR_USUARIO', payload: response.data.success ? response.data.respuesta : null })
 
             } catch (error) {
@@ -39,14 +44,14 @@ const userActions = {
 
     signOutUser: () => {
 
-        return (dispatch, getState) => {
-
+        return async (dispatch, getState) => {
+            await AsyncStorage.clear()
             dispatch({ type: 'DESLOGUEAR_USUARIO' })
-            console.log("nos vimos")
         }
     },
 
     forzarLoginLocalStore: (usuarioLoguedo) => {
+        console.log(usuarioLoguedo)
         return async (dispatch, getState) => {
             try {
                 const response = await axios.get("https://my-tinerary2021.herokuapp.com/api/user/loginLocalStore", {
@@ -54,6 +59,8 @@ const userActions = {
                         'Authorization': 'Bearer ' + usuarioLoguedo.token
                     }
                 })
+                /*  await AsyncStorage.setItem('userLogged', JSON.stringify({ foto: response.data.respuesta.foto, name: response.data.respuesta.name }))
+                 await AsyncStorage.setItem('token', response.data.respuesta.token) */
                 dispatch({
                     type: 'LOGUEAR_USUARIO', payload: {
                         ...response.data.respuesta,
@@ -65,10 +72,7 @@ const userActions = {
                     alert("HACKING ALERT")
 
                 }
-
             }
-
-
         }
     }
 }

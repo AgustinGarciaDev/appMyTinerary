@@ -45,20 +45,17 @@ const SignUp = (props) => {
             });
 
         } else {
-            console.log("entre a enviar la accion")
             const respuesta = await props.createUser(user)
-
             if (respuesta) {
-                console.log("llego a la respuesta")
-                console.log(respuesta.details)
-                /*  setErrores() */
+                console.log("")
+                /*  console.log(respuesta.details) */
+
             } else {
                 Toast.show({
                     text1: 'Welcome👋',
 
                 });
                 props.navigation.navigate('Home')
-                console.log("Logueo exitoso")
             }
         }
 

@@ -16,8 +16,6 @@ const City = (props) => {
     useEffect(() => {
         const idCity = props.route.params.id
         if (!(props.cities.length === 0)) {
-
-            console.log(idCity)
             let searchCity = props.cities.find(ciudad => ciudad._id === idCity)
             setFoundCity({ loading: false, city: searchCity })
         }
@@ -31,7 +29,6 @@ const City = (props) => {
         return <Text>Loading!</Text>
     }
 
-    console.log(props.itinerary)
     return (
         <ScrollView>
             <ImageBackground style={styles.containerCity} source={{ uri: city.url }} >
@@ -39,7 +36,6 @@ const City = (props) => {
                     <Text style={styles.text}>{city.nombre}</Text>
                 </View>
             </ImageBackground>
-
             <View>
                 {props.itinerary.map(item => <Itinerary key={item._id} itinerary={item} />)}
             </View>

@@ -8,26 +8,21 @@ const itineraryActions = {
             axios.get('https://my-tinerary2021.herokuapp.com/api/itinerary/city/' + id)
                 .then(response => dispatch({ type: 'OBTENER_ITINERARIES', payload: response.data.respuesta }))
                 .catch(error => console.log(error))
-
         }
     },
-    cargarActividades: (id) => {
+    loadActivities: (id) => {
         return async (dispatch, getState) => {
 
             try {
-
                 const response = await axios.get('https://my-tinerary2021.herokuapp.com/api/activity/itinerary/' + id)
-
                 return response.data.respuesta.activities
-
             } catch (error) {
                 console.log(error)
             }
-
         }
     },
 
-    cargarComentarios: (comentario, id) => {
+    addComment: (comentario, id) => {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.post('https://my-tinerary2021.herokuapp.com/api/itinerary/comentario/' + id, comentario, {
@@ -44,7 +39,7 @@ const itineraryActions = {
         }
     },
 
-    borrarComentario: (idComentario, id) => {
+    deleteComment: (idComentario, id) => {
         return async (dispatch, getState) => {
 
             try {
@@ -58,7 +53,7 @@ const itineraryActions = {
 
     },
 
-    editarComentario: (id, idComentario, comment) => {
+    editComment: (id, idComentario, comment) => {
         const datosComentario = {
             idComentario: idComentario,
             comment: comment,
@@ -74,7 +69,7 @@ const itineraryActions = {
         }
     },
 
-    likearCorazon: (id, name) => {
+    likeHeart: (id, name) => {
 
         return async (dispatch, getState) => {
             try {
