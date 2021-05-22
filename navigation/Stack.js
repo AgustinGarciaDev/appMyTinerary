@@ -31,7 +31,7 @@ export const HomeStack = ({ navigation }) => {
     )
 }
 
-export const CitiesStack = () => {
+export const CitiesStack = ({ navigation }) => {
     return (
         <stack.Navigator>
             <stack.Screen name="Cities" component={Cities}
@@ -84,7 +84,7 @@ export const CitiesStack = () => {
     )
 }
 
-export const SignInStack = () => {
+export const SignInStack = ({ navigation }) => {
     return (
         <stack.Navigator>
             <stack.Screen name="SignIn" component={SignIn}
@@ -105,7 +105,7 @@ export const SignInStack = () => {
 }
 
 
-export const SignUpStack = () => {
+export const SignUpStack = ({ navigation }) => {
     return (
         <stack.Navigator>
             <stack.Screen name="SignUp" component={SignUp}
