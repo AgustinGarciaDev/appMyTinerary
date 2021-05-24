@@ -84,8 +84,9 @@ const Comments = (props) => {
                         leftIcon={{ type: 'font-awesome', name: 'comment' }}
                         onChangeText={commentInput}
                         containerStyle={styles.inputComment}
+                        value={newComment.mensaje}
                     />
-                    <Icon onPress={sendComment} name='paper-plane' type='font-awesome-5' color='#00aced' />
+                    <Icon onPress={sendComment} name='paper-plane' type='font-awesome-5' size={35} color='#032e50' />
                 </View>
             }
         </View>
@@ -95,7 +96,9 @@ const styles = StyleSheet.create({
 
     containerInputAndButton: {
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        marginBottom: 20,
+        marginTop: 20
     },
     inputComment: {
         width: "90%",

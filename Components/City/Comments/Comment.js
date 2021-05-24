@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, Pressable, Alert } from 'react-native';
 import { Input } from 'react-native-elements';
 import { Icon } from 'react-native-elements'
 import { connect } from 'react-redux';
-
+import Toast from 'react-native-toast-message';
 const Comment = (props) => {
 
     const { deleteComment, editComment, comment: { userId: { email, firstName, lastName, userPic }, comment, _id } } = props
@@ -19,7 +19,6 @@ const Comment = (props) => {
             mensaje: e
         })
     }
-
 
     const deleteCommentUser = () => {
 
@@ -37,8 +36,17 @@ const Comment = (props) => {
     }
 
     const sendEditComment = () => {
-        props.editComment(_id, newComment.mensaje, props.comment.userId.email)
-        setChangeInput(!changeInput)
+
+        if (newComment.mensaje.length !== 0) {
+            props.editComment(_id, newComment.mensaje, props.comment.userId.email)
+            setChangeInput(!changeInput)
+        } else {
+            Toast.show({
+                text1: 'Los campos deben estar completos',
+                type: 'error',
+                position: 'bottom',
+            });
+        }
     }
 
     useEffect(() => {
@@ -53,7 +61,7 @@ const Comment = (props) => {
         <View style={styles.containerComment}>
             <View style={styles.containerInfoUser}>
                 <Image style={styles.fotoUser} source={{ uri: userPic }} />
-                <Text>{firstName} {lastName}</Text>
+                <Text style={{ marginLeft: 10, fontSize: 25, fontFamily: 'Poppins_400Regular' }}  >{firstName} {lastName}</Text>
             </View>
             <View>
                 {changeInput
@@ -63,10 +71,11 @@ const Comment = (props) => {
                             leftIcon={{ type: 'font-awesome', name: 'comment' }}
                             onChangeText={commentInput}
                             containerStyle={styles.inputComment}
+                            value={newComment.mensaje}
                         />
-                        <Icon onPress={sendEditComment} name='paper-plane' type='font-awesome-5' color='#00aced' />
+                        <Icon onPress={sendEditComment} name='paper-plane' type='font-awesome-5' size={35} color='#032e50' />
                     </View>
-                    : <Text>{comment}</Text>
+                    : <Text style={{ marginLeft: 10, fontSize: 20, marginTop: 10, marginBottom: 10, fontFamily: 'Poppins_400Regular' }}>{comment}</Text>
                 }
             </View>
             {
@@ -87,12 +96,21 @@ const Comment = (props) => {
 const styles = StyleSheet.create({
 
     containerComment: {
-        backgroundColor: 'gray',
+        backgroundColor: 'white',
         marginTop: 20,
         marginBottom: 20,
         padding: 10,
         justifyContent: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.36,
+        shadowRadius: 6.68,
+        elevation: 11,
+
     },
 
     containerInfoUser: {

@@ -1,42 +1,48 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { Video } from 'expo-av';
 import CardCity from "../Components/City/CardCity"
 import citiesActions from '../ReduxStore/Action/citiesAction'
 import { connect } from "react-redux";
+import { SearchBar } from 'react-native-elements';
 
 const Cities = (props) => {
 
     const { loadCities, cities, foundCity, searchCity } = props
 
+    const [search, setSearch] = useState('')
+
     useEffect(() => {
         loadCities()
     }, [])
+
+    const updateSearch = (search) => {
+        searchCity(search)
+        setSearch({ search })
+
+    };
 
     return (
 
         <ScrollView>
             <StatusBar backgroundColor="#61dafb" />
             <View style={styles.container}>
-                <Video
-                    source={{ uri: 'https://myhadministracionedificios.com/wp-content/uploads/2021/04/production-ID_4507988-1-1.mp4' }}
-                    rate={1.0}
-                    isMuted={true}
-                    resizeMode="cover"
-                    shouldPlay
-                    isLooping
+                <Image
+                    source={{ uri: 'https://raw.githubusercontent.com/AgustinGarciaDev/imagenes/master/Dise%C3%B1o%20sin%20t%C3%ADtulo.jpg' }}
                     style={styles.video}
                 />
                 <View style={styles.heroText}>
                     <Text style={styles.title}>Search cities!</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={(e) => searchCity(e)}
-                        placeholder="Search Cities"
-                    />
                 </View>
             </View>
+            <SearchBar
+                placeholder="Search City..."
+                onChangeText={updateSearch}
+                value={search}
+                platform='ios'
+                containerStyle={styles.input}
+            />
             <View style={styles.containerCities}>
                 {foundCity.map(city => <CardCity navigation={props.navigation} city={city} key={city._id} />)}
             </View>
@@ -53,17 +59,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 50,
-        color: "black",
-        /*  fontFamily: "Montserrat-Black" */
-    },
-    text: {
-        fontSize: 20,
         color: "white",
-        /* fontFamily: "Poppins-Black" */
+        textAlign: 'center',
+        fontFamily: "Poppins_700Bold"
     },
     video: {
         width: "100%",
-        height: 340,
+        height: 200,
     },
     heroText: {
         position: "absolute"
@@ -76,12 +78,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 20
     },
-    input: {
-        height: 40,
-        margin: 12,
-        backgroundColor: "white",
-        padding: 10
-    },
+
     containerCities: {
         alignItems: "center",
         marginTop: 40

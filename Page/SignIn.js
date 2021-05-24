@@ -28,8 +28,15 @@ const SignIn = (props) => {
         } else {
             const respuesta = await props.signInUser(user)
             if (respuesta) {
-                console.log("error")
-                /*  setErrores() */
+                respuesta.details.map(error => {
+                    return (
+                        Toast.show({
+                            text1: error.message,
+                            type: 'error',
+                            position: 'bottom',
+                        })
+                    )
+                })
             } else {
                 Toast.show({
                     text1: 'Welcome👋',

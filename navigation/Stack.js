@@ -19,7 +19,7 @@ export const HomeStack = ({ navigation }) => {
                         <Icon
                             name='bars'
                             type='font-awesome-5'
-                            color='red'
+                            color='#032e50'
                             onPress={() => navigation.openDrawer()}
                             containerStyle={{ marginRight: 25 }}
 
@@ -40,7 +40,7 @@ export const CitiesStack = ({ navigation }) => {
                         <Icon
                             name='bars'
                             type='font-awesome-5'
-                            color='red'
+                            color='#032e50'
                             onPress={() => navigation.openDrawer()}
                             containerStyle={{ marginRight: 25 }}
 
@@ -56,7 +56,7 @@ export const CitiesStack = ({ navigation }) => {
                         <Icon
                             name='bars'
                             type='font-awesome-5'
-                            color='red'
+                            color='#032e50'
                             onPress={() => navigation.openDrawer()}
                             containerStyle={{ marginRight: 25 }}
 
@@ -71,7 +71,7 @@ export const CitiesStack = ({ navigation }) => {
                         <Icon
                             name='bars'
                             type='font-awesome-5'
-                            color='red'
+                            color='#032e50'
                             onPress={() => navigation.openDrawer()}
                             containerStyle={{ marginRight: 25 }}
 
@@ -93,7 +93,7 @@ export const SignInStack = ({ navigation }) => {
                         <Icon
                             name='bars'
                             type='font-awesome-5'
-                            color='red'
+                            color='#032e50'
                             onPress={() => navigation.openDrawer()}
                             containerStyle={{ marginRight: 25 }}
 
@@ -114,7 +114,7 @@ export const SignUpStack = ({ navigation }) => {
                         <Icon
                             name='bars'
                             type='font-awesome-5'
-                            color='red'
+                            color='#032e50'
                             onPress={() => navigation.openDrawer()}
                             containerStyle={{ marginRight: 25 }}
 

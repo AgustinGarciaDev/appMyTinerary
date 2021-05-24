@@ -49,16 +49,18 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     backDrop: {
-        backgroundColor: "#000000a0",
+        backgroundColor: "rgba(13,81,136,.6392156862745098)",
         width: "100%",
-        height: "10%",
+        height: 'auto',
         justifyContent: 'center',
+
     },
     text: {
         color: "white",
         fontSize: 32,
         fontWeight: "bold",
-        textAlign: 'center'
+        textAlign: 'center',
+
     },
     containerCity: {
         width: "100%",
@@ -66,7 +68,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'flex-end',
+
     }
 
 });

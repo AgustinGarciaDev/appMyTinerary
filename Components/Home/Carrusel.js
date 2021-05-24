@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 const Carrusel = () => {
+
 
 
     const city = [
@@ -31,15 +32,19 @@ const Carrusel = () => {
     }
 
     return (
-        <Carousel
-            ref={(c) => { _carousel = c; }}
-            data={city}
-            sliderWidth={500}
-            itemWidth={400}
-            renderItem={_renderItem}
-            layout={"stack"}
+        <View style={styles.containerCarrusel}>
+            <Carousel
+                ref={(c) => { _carousel = c; }}
+                data={city}
+                sliderWidth={500}
+                itemWidth={400}
+                renderItem={_renderItem}
+                layout={"stack"}
+                loop={true}
+                autoplay={true}
+            />
 
-        />
+        </View>
     )
 }
 
@@ -60,7 +65,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
         alignItems: "center",
         justifyContent: "center"
-    }
+    },
+    containerCarrusel: {
+        marginBottom: 20,
+        marginTop: 20,
+    },
+
 
 });
 export default Carrusel

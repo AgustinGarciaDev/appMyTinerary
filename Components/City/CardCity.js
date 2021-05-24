@@ -7,7 +7,16 @@ const CardCity = (props) => {
     return (
         <Pressable onPress={() => props.navigation.navigate('City', { id: _id })} >
             <ImageBackground style={styles.containerCity} source={{ uri: url }} >
-                <Text style={styles.text}>{nombre}</Text>
+                <Text style={{
+                    color: "white",
+                    fontSize: 42,
+                    fontWeight: "bold",
+                    backgroundColor: "#000000a0",
+                    width: 335,
+                    textAlign: "center",
+                    fontFamily: 'Poppins_400Regular',
+
+                }}>{nombre}</Text>
             </ImageBackground>
         </Pressable>
     )
@@ -20,21 +29,14 @@ const styles = StyleSheet.create({
         height: 300,
         width: "90%"
     },
-    text: {
-        color: "white",
-        fontSize: 42,
-        fontWeight: "bold",
-        backgroundColor: "#000000a0",
-        width: 335,
-        textAlign: "center",
-        /* fontFamily: "Poppins-Bold" */
-    },
+
     containerCity: {
         width: "90%",
         height: 300,
         marginTop: 10,
         marginBottom: 10,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+
     }
 
 });

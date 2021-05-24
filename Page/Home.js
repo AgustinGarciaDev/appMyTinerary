@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Hero from '../Components/Home/Hero'
 import Carrusel from '../Components/Home/Carrusel'
-const Home = () => {
-
+const Home = (props) => {
     return (
-        <>
-            <Hero />
+        <ScrollView>
+            <Hero navigation={props.navigation} />
             <Carrusel />
-        </>
+        </ScrollView>
     )
 }
 

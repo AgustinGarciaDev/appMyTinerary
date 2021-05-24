@@ -5,10 +5,9 @@ import { Text } from 'react-native-elements';
 import Comments from './Comments/Comments'
 import Activities from './Activities'
 import { connect } from "react-redux";
-import Carousel from 'react-native-snap-carousel';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { Avatar } from 'react-native-elements';
-import { ActivityIndicator } from 'react-native';
-import { Image, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import ItineraryAction from '../../ReduxStore/Action/ItineraryAction'
 import Toast from 'react-native-toast-message';
 
@@ -21,7 +20,7 @@ const Itinerary = (props) => {
     const [like, setLike] = useState(likes)
     const [loadingHeart, setLoadingHeart] = useState(true)
     const [commentsPeople, setCommentsPeople] = useState(comments)
-
+    const [slider1ActiveSlide, setSlider1ActiveSlide] = useState(0);
 
     const _renderItem = ({ item, index }) => {
 
@@ -71,15 +70,16 @@ const Itinerary = (props) => {
     }, [props.usuarioStatus])
 
 
+
     return (
         <ScrollView style={styles.containerItinerary}>
             <View>
                 <Text style={styles.titleItinerary}>{nombreItinerary}</Text>
-                <View>
-                    {hastag.map((hastag, index) => <Text key={index}>#{hastag}</Text>)}
+                <View style={styles.containerHastag}>
+                    {hastag.map((hastag, index) => <Text style={styles.hastag} key={index}>#{hastag}</Text>)}
                 </View>
             </View>
-            <View>
+            <View style={styles.containerCarrusel}>
                 <Carousel
                     ref={(c) => { _carousel = c; }}
                     data={picBanner}
@@ -87,30 +87,50 @@ const Itinerary = (props) => {
                     itemWidth={400}
                     renderItem={_renderItem}
                     layout={"stack"}
+                    loop={true}
+                    autoplay={true}
+                    onSnapToItem={(index) => setSlider1ActiveSlide(index)}
                 />
+                <Pagination
+                    dotsLength={picBanner.length}
+                    containerStyle={styles.paginationContainer}
+                    dotStyle={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: 5,
+                        marginHorizontal: 8,
+                        backgroundColor: 'black'
+                    }}
+                    inactiveDotOpacity={0.4}
+                    inactiveDotScale={0.6}
+                    activeDotIndex={slider1ActiveSlide}
+                />
+
             </View>
-            <View>
-                <Avatar rounded source={{ uri: authorPic }} />
-                <Text h3>{authorName}</Text>
+            <View style={styles.containerUserAndName}>
+                <Avatar size="large" rounded source={{ uri: authorPic }} />
+                <Text style={styles.nameUser} h3>{authorName}</Text>
             </View>
-            <View>
-                {Array(precie).fill(precie).map((billete, index) => <Icon key={index} name='money-bill-wave' type='font-awesome-5' color='#00aced' />)}
+            <View style={styles.containerPrecie}>
+                <View style={styles.containerCash}>
+                    {Array(precie).fill(precie).map((billete, index) => <Icon style={{ marginLeft: 10 }} size={35} key={index} name='money-bill-wave' type='font-awesome-5' color='#032e50' />)}
+                </View>
             </View>
-            <View>
-                <Text>
-                    <Icon name='clock' type='font-awesome-5' color='#00aced' />
+            <View style={styles.containerHour}>
+                <Icon size={35} name='clock' type='font-awesome-5' color='#032e50' />
+                <Text style={{ marginLeft: 10, fontSize: 20, fontFamily: 'Poppins_400Regular' }}>
                     {duration} hours(Approx.)
                 </Text>
             </View>
-            <View>
-                <Text>{like}</Text>
+            <View style={styles.containerLike}>
                 {heartLike
-                    ? <Icon onPress={loadingHeart ? likeBtn : null} type='font-awesome-5' name="heart" size={25} color="red" />
-                    : <Icon onPress={loadingHeart ? likeBtn : null} type='font-awesome-5' name="heart" size={25} color="black" />
+                    ? <Icon onPress={loadingHeart ? likeBtn : null} type='font-awesome-5' name="heart" size={35} color="red" />
+                    : <Icon onPress={loadingHeart ? likeBtn : null} type='font-awesome-5' name="heart" size={35} color='#032e50' />
                 }
+                <Text style={{ marginLeft: 10, fontSize: 20, fontFamily: 'Poppins_400Regular' }}>{like}</Text>
             </View>
             <View>
-                {!btnVisible && <Button onPress={changeStatusBtn} title={btnVisible ? "View Less" : "View More"} />}
+                {!btnVisible && <Button buttonStyle={styles.btnView} onPress={changeStatusBtn} title={btnVisible ? "View Less" : "View More"} />}
             </View>
             {
                 btnVisible
@@ -125,7 +145,7 @@ const Itinerary = (props) => {
                         commentsPeople={commentsPeople}
                         idItinerary={_id}
                     />
-                    <Button onPress={changeStatusBtn} title={btnVisible ? "View Less" : "View More"} />
+                    <Button buttonStyle={styles.btnView} onPress={changeStatusBtn} title={btnVisible ? "View Less" : "View More"} />
                 </View>
             }
         </ScrollView>
@@ -143,12 +163,58 @@ const styles = StyleSheet.create({
     },
     titleItinerary: {
         fontFamily: "Poppins_700Bold",
+        fontSize: 35
+    },
+    containerHastag: {
+        flexDirection: "row",
+        alignItems: 'center',
+
+    },
+    hastag: {
+        fontSize: 20,
+        marginLeft: 10,
+        marginBottom: 10
+    },
+    containerCarrusel: {
+        justifyContent: 'center',
+        marginLeft: -10
+    },
+    containerUserAndName: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    nameUser: {
+        marginLeft: 20,
+        fontFamily: "Poppins_700Bold",
     },
     image: {
         resizeMode: "cover",
         justifyContent: "center",
         height: 300,
-        width: "90%"
+        width: "90%",
+    },
+    containerPrecie: {
+        marginBottom: 20,
+        marginTop: 20,
+        flexDirection: 'row',
+
+    },
+    containerCash: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    containerHour: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 10
+    },
+    containerLike: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 13,
+        marginBottom: 20,
+        marginTop: 20,
+
     },
     coin: {
         width: "20%",
@@ -157,6 +223,15 @@ const styles = StyleSheet.create({
     },
     buttonHeart: {
         width: "10%"
+    },
+
+    paginationContainer: {
+        paddingTop: 20,
+        paddingBottom: 20,
+    },
+    btnView: {
+        backgroundColor: '#032e50',
+        height: 50,
     }
 
 

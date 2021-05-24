@@ -6,6 +6,7 @@ import { useState } from 'react';
 import userActions from '../ReduxStore/Action/userAction'
 import Toast from 'react-native-toast-message';
 import axios from 'axios'
+/* import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin'; */
 const SignUp = (props) => {
 
     const [countries, setCountries] = useState([]);
@@ -17,7 +18,6 @@ const SignUp = (props) => {
         userPic: "",
         country: "",
     })
-
 
     useEffect(() => {
         axios.get("https://restcountries.eu/rest/v2/all")
@@ -45,7 +45,16 @@ const SignUp = (props) => {
         } else {
             const respuesta = await props.createUser(user)
             if (respuesta) {
-                console.log("")
+
+                respuesta.details.map(error => {
+                    return (
+                        Toast.show({
+                            text1: error.message,
+                            type: 'error',
+                            position: 'bottom',
+                        })
+                    )
+                })
             } else {
                 Toast.show({
                     text1: 'Welcome👋',

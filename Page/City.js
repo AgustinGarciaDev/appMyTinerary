@@ -33,7 +33,9 @@ const City = (props) => {
         <ScrollView>
             <ImageBackground style={styles.containerCity} source={{ uri: city.url }} >
                 <View style={styles.backDrop}>
-                    <Text style={styles.text}>{city.nombre}</Text>
+                    <Text style={{ textAlign: 'center', fontFamily: "Poppins_700Bold", fontSize: 62, color: "white" }}>
+                        {city.nombre}
+                    </Text>
                 </View>
             </ImageBackground>
             <View>
@@ -55,12 +57,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         justifyContent: 'center',
-    },
-    text: {
-        color: "white",
-        fontSize: 62,
-        fontWeight: "bold",
-        textAlign: 'center'
+
     },
     containerCity: {
         width: "100%",
