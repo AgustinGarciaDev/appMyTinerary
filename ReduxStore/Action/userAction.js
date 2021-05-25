@@ -72,6 +72,7 @@ const userActions = {
     forzarLoginLocalStore: (usuarioLoguedo) => {
         return async (dispatch, getState) => {
             try {
+
                 const response = await axios.get("https://my-tinerary2021.herokuapp.com/api/user/loginLocalStore", {
                     headers: {
                         'Authorization': 'Bearer ' + usuarioLoguedo.token

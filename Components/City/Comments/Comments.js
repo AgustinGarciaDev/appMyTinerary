@@ -90,7 +90,7 @@ const Comments = (props) => {
                         containerStyle={styles.inputComment}
                         value={newComment.mensaje}
                     />
-                    <Icon onPress={sendComment} name='paper-plane' type='font-awesome-5' size={35} color='#032e50' />
+                    <Icon onPress={loadingComment ? sendComment : null} name='paper-plane' type='font-awesome-5' size={35} color='#032e50' />
                 </View>
             }
         </View>

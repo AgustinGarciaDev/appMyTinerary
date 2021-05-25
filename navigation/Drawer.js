@@ -16,17 +16,18 @@ const Drawer = (props) => {
     const loginLocalStoreUser = async () => {
 
         if (!props.usuarioStatus && AsyncStorage.getItem('token')) {
-
             const tokenAsyncStorage = await AsyncStorage.getItem('token')
-            const infoUser = await AsyncStorage.getItem('userLogged')
-            const infoUserConvert = JSON.parse(infoUser)
-            const userLoggedInfo = {
-                token: tokenAsyncStorage,
-                ...infoUserConvert
+            if (tokenAsyncStorage) {
+                const infoUser = await AsyncStorage.getItem('userLogged')
+                const infoUserConvert = JSON.parse(infoUser)
+                const userLoggedInfo = {
+                    token: tokenAsyncStorage,
+                    ...infoUserConvert
+                }
+                props.forzarLoginLocalStore(userLoggedInfo)
+                return null
             }
-            props.forzarLoginLocalStore(userLoggedInfo)
 
-            return null
         }
     }
 
