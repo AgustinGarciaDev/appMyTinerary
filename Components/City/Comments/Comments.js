@@ -29,7 +29,7 @@ const Comments = (props) => {
         if (props.usuarioStatus) {
             if (emptySearch === " " || newComment.mensaje === "") {
                 Toast.show({
-                    text1: 'Los campos deben estar completos',
+                    text1: 'The fields must be complete',
                     type: 'error',
                     position: 'bottom',
                 });
@@ -70,6 +70,10 @@ const Comments = (props) => {
         if (email === props.usuarioStatus.name) {
             const respuesta = await props.editComment(id, idComentario, comment)
             setCommentsPeople(respuesta)
+            Toast.show({
+                text1: 'Comment edit successfully',
+                position: 'bottom',
+            });
         }
     }
 

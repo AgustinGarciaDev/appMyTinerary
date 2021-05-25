@@ -42,7 +42,7 @@ const Comment = (props) => {
             setChangeInput(!changeInput)
         } else {
             Toast.show({
-                text1: 'Los campos deben estar completos',
+                text1: 'The fields must be complete',
                 type: 'error',
                 position: 'bottom',
             });

@@ -24,7 +24,7 @@ const SignIn = (props) => {
 
         let user = e ? infoUser : facebokUser
         if (user.email === "" || user.password === "") {
-            console.log("los campos deben estar completos")
+            console.log("The fields must be complete")
         } else {
             const respuesta = await props.signInUser(user)
             if (respuesta) {
@@ -72,7 +72,7 @@ const SignIn = (props) => {
 
             } else {
                 Toast.show({
-                    text1: 'Hubo un problema al loguearse',
+                    text1: 'Error try to login again',
                     type: 'error',
                     position: 'bottom',
                 })
@@ -113,7 +113,7 @@ const SignIn = (props) => {
                 </Pressable>
                 <Pressable onPress={logIn} style={styles.buttonFacebook} >
                     <Icon style={{ marginRight: 10 }} name='facebook' type='font-awesome-5' size={35} color='white' />
-                    <Text style={styles.text}>Sign in With Facebok</Text>
+                    <Text style={styles.text}>Sign in with Facebok</Text>
                 </Pressable>
             </View>
         </ImageBackground>
