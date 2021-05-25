@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Icon } from 'react-native-elements'
-import { ScrollView, StyleSheet, View, ImageBackground } from 'react-native';
+import { ScrollView, StyleSheet, View, ImageBackground, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
 import Comments from './Comments/Comments'
 import Activities from './Activities'
@@ -10,6 +10,7 @@ import { Avatar } from 'react-native-elements';
 import { Button } from 'react-native-elements';
 import ItineraryAction from '../../ReduxStore/Action/ItineraryAction'
 import Toast from 'react-native-toast-message';
+import LottieView from "lottie-react-native";
 
 const Itinerary = (props) => {
     const { itinerary: { comments, nombreItinerary, _id, authorName, duration, authorPic, hastag, precie, picBanner, offered, countryCoin, likes, userLiked } } = props
@@ -36,10 +37,7 @@ const Itinerary = (props) => {
         setBtn(!btnVisible)
         setCommentsPeople(comments)
     }
-
-
     const likeBtn = async () => {
-        console.log("me ejecuto")
         if (props.usuarioStatus) {
             setLoadingHeart(false)
             setUser(props.usuarioStatus.name)
@@ -69,7 +67,24 @@ const Itinerary = (props) => {
         }
     }, [props.usuarioStatus])
 
+    const animation = React.useRef(null);
+    const isFirstRun = React.useRef(true);
+    React.useEffect(() => {
+        if (!isFirstRun) {
+            if (heartLike) {
+                animation.current.play(66, 66);
+            } else {
+                animation.current.play(19, 19);
+            }
+            isFirstRun.current = false;
+        } else if (heartLike) {
+            animation.current.play(33, 63);
+        } else {
+            animation.current.play(0, 19);
+        }
 
+
+    }, [heartLike]);
 
     return (
         <ScrollView style={styles.containerItinerary}>
@@ -123,11 +138,20 @@ const Itinerary = (props) => {
                 </Text>
             </View>
             <View style={styles.containerLike}>
-                {heartLike
+                {/*  {heartLike
                     ? <Icon onPress={loadingHeart ? likeBtn : null} type='font-awesome-5' name="heart" size={35} color="red" />
                     : <Icon onPress={loadingHeart ? likeBtn : null} type='font-awesome-5' name="heart" size={35} color='#032e50' />
-                }
-                <Text style={{ marginLeft: 10, fontSize: 20, fontFamily: 'Poppins_400Regular' }}>{like}</Text>
+                } */}
+                <TouchableOpacity onPress={loadingHeart ? likeBtn : null} >
+                    <LottieView
+                        ref={animation}
+                        style={styles.heartLottie}
+                        source={require("../../assets/animation/44921-like-animation.json")}
+                        autoPlay={false}
+                        loop={false}
+                    />
+                </TouchableOpacity>
+                <Text style={{ marginLeft: -20, fontSize: 25, fontFamily: 'Poppins_400Regular' }}>{like}</Text>
             </View>
             <View>
                 {!btnVisible && <Button buttonStyle={styles.btnView} onPress={changeStatusBtn} title={btnVisible ? "View Less" : "View More"} />}
@@ -211,9 +235,9 @@ const styles = StyleSheet.create({
     containerLike: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 13,
-        marginBottom: 20,
-        marginTop: 20,
+        marginBottom: 5,
+        marginTop: 5,
+        marginLeft: -17
 
     },
     coin: {
@@ -232,7 +256,11 @@ const styles = StyleSheet.create({
     btnView: {
         backgroundColor: '#032e50',
         height: 50,
-    }
+    },
+    heartLottie: {
+        width: 100,
+        height: 100,
+    },
 
 
 })

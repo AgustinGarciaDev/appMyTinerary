@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, ScrollView, ImageBackground } from 'react-native';
 import { connect } from "react-redux";
 import itineraryActions from '../ReduxStore/Action/ItineraryAction';
 import Itinerary from '../Components/City/Itinerary';
+/* import LottieView from 'lottie-react-native'; */
 const City = (props) => {
 
-
+    /*    const animation = React.useRef(null); */
     const [foundCity, setFoundCity] = useState({
         loading: true,
         city: null
@@ -14,6 +15,7 @@ const City = (props) => {
 
 
     useEffect(() => {
+        /*  animation.current.play() */
         const idCity = props.route.params.id
         if (!(props.cities.length === 0)) {
             let searchCity = props.cities.find(ciudad => ciudad._id === idCity)
@@ -22,11 +24,13 @@ const City = (props) => {
         props.loadItinerary(idCity)
     }, [])
 
+
+
     const { loading, city } = foundCity
 
     if (loading) {
 
-        return <Text>Loading!</Text>
+        return null
     }
 
     return (

@@ -21,7 +21,7 @@ const Activities = (props) => {
     }
 
     if (loading) {
-        <Text>Loading</Text>
+        return null
     }
     return (
         <View>

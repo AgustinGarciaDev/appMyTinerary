@@ -1,11 +1,11 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, ImageBackground } from 'react-native';
-import { Input } from 'react-native-elements';
 import { connect } from "react-redux";
 import userActions from '../ReduxStore/Action/userAction'
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
+import * as Facebook from 'expo-facebook';
+import { Icon } from 'react-native-elements'
 const SignIn = (props) => {
 
     const [infoUser, setInfoUser] = useState({
@@ -20,9 +20,9 @@ const SignIn = (props) => {
         })
     }
 
-    const sendForm = async () => {
+    const sendForm = async (e = null, facebokUser = null) => {
 
-        let user = infoUser
+        let user = e ? infoUser : facebokUser
         if (user.email === "" || user.password === "") {
             console.log("los campos deben estar completos")
         } else {
@@ -40,12 +40,50 @@ const SignIn = (props) => {
             } else {
                 Toast.show({
                     text1: 'Welcome👋',
+                    position: 'bottom',
                 });
                 props.navigation.navigate('Home')
             }
         }
 
 
+    }
+
+    async function logIn() {
+        try {
+            await Facebook.initializeAsync({
+                appId: '768205227393989',
+            });
+            const {
+                type,
+                token,
+            } = await Facebook.logInWithReadPermissionsAsync({
+                permissions: ['public_profile', 'email'],
+            });
+            if (type === 'success') {
+                // Get the user's name using Facebook's Graph API
+                const response = await fetch(`https://graph.facebook.com/me?fields=id,first_name,email,last_name,picture&access_token=${token}`);
+                const dataUser = await response.json()
+                sendForm(null, {
+                    email: !dataUser.email ? 'correoPrueba@gmail.com' : dataUser.email,
+                    password: "Hola1234!",
+                })
+
+
+            } else {
+                Toast.show({
+                    text1: 'Hubo un problema al loguearse',
+                    type: 'error',
+                    position: 'bottom',
+                })
+            }
+        } catch ({ message }) {
+            Toast.show({
+                text1: message,
+                type: 'error',
+                position: 'bottom',
+            })
+        }
     }
 
 
@@ -72,6 +110,10 @@ const SignIn = (props) => {
                 </View>
                 <Pressable onPress={sendForm} style={styles.button} >
                     <Text style={styles.text}>Sign In</Text>
+                </Pressable>
+                <Pressable onPress={logIn} style={styles.buttonFacebook} >
+                    <Icon style={{ marginRight: 10 }} name='facebook' type='font-awesome-5' size={35} color='white' />
+                    <Text style={styles.text}>Sign in With Facebok</Text>
                 </Pressable>
             </View>
         </ImageBackground>
@@ -122,8 +164,9 @@ const styles = StyleSheet.create({
         elevation: 3,
         marginTop: 20,
         backgroundColor: 'black',
-        width: 120,
-        height: 40
+        width: "80%",
+        height: 50,
+        zIndex: 1
     },
     text: {
         fontSize: 16,
@@ -132,6 +175,19 @@ const styles = StyleSheet.create({
         letterSpacing: 0.25,
         color: 'white',
     },
+    buttonFacebook: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 4,
+        elevation: 3,
+        marginTop: 20,
+        backgroundColor: '#0D88F0',
+        width: "80%",
+        height: 50,
+        zIndex: 1,
+        flexDirection: 'row',
+        marginBottom: 50
+    }
 
 
 });

@@ -7,8 +7,6 @@ import { Button } from 'react-native-elements';
 
 
 const Hero = (props) => {
-
-    console.log(props)
     return (
         <>
 

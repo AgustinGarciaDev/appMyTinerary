@@ -19,7 +19,7 @@ const Cities = (props) => {
 
     const updateSearch = (search) => {
         searchCity(search)
-        setSearch({ search })
+        setSearch(search)
 
     };
 
@@ -29,7 +29,7 @@ const Cities = (props) => {
             <StatusBar backgroundColor="#61dafb" />
             <View style={styles.container}>
                 <Image
-                    source={{ uri: 'https://raw.githubusercontent.com/AgustinGarciaDev/imagenes/master/Dise%C3%B1o%20sin%20t%C3%ADtulo.jpg' }}
+                    source={{ uri: 'http://baravdg.com/wp-content/uploads/2021/05/portadaCities.jpg' }}
                     style={styles.video}
                 />
                 <View style={styles.heroText}>
