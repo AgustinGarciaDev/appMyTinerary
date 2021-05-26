@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from "react-native"
 import LottieView from 'lottie-react-native';
-const ItineraryNotFound = () => {
+const CityNotFound = () => {
 
     return (
         <View>
@@ -9,16 +9,13 @@ const ItineraryNotFound = () => {
                 style={{
                     fontFamily: "Poppins_400Regular",
                     textAlign: 'center',
-                    fontSize: 20
+                    fontSize: 40
                 }}>
-                This city still has no Itinerary
+                City not found
                 </Text>
             <LottieView
-                /*   ref={(animation) => {
-                      animation.play()
-                  }} */
                 style={styles.notFoundLottie}
-                source={require("../assets/animation/61372-404-error-not-found.json")}
+                source={require("../../assets/animation/11865-sad-emoji.json")}
                 autoPlay
                 loop
             />
@@ -36,4 +33,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ItineraryNotFound
+export default CityNotFound

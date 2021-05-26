@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
-import { Video } from 'expo-av';
 import CardCity from "../Components/City/CardCity"
 import citiesActions from '../ReduxStore/Action/citiesAction'
 import { connect } from "react-redux";
 import { SearchBar } from 'react-native-elements';
+import CityNotFound from '../Components/City/CityNotFound'
+import LoadingCity from '../Components/City/LoadingCity'
 
 const Cities = (props) => {
 
     const { loadCities, cities, foundCity, searchCity } = props
-
     const [search, setSearch] = useState('')
 
     useEffect(() => {
         loadCities()
+
     }, [])
 
     const updateSearch = (search) => {
         searchCity(search)
         setSearch(search)
-
     };
-
     return (
 
         <ScrollView>
@@ -44,7 +43,12 @@ const Cities = (props) => {
                 containerStyle={styles.input}
             />
             <View style={styles.containerCities}>
-                {foundCity.map(city => <CardCity navigation={props.navigation} city={city} key={city._id} />)}
+                {cities.length === 0
+                    ? <LoadingCity />
+                    : foundCity.length === 0
+                        ? <CityNotFound />
+                        : foundCity.map(city => <CardCity navigation={props.navigation} city={city} key={city._id} />)
+                }
             </View>
         </ScrollView>
 
@@ -99,6 +103,7 @@ const mapDispatchToProps = {
 
     loadCities: citiesActions.loadCities,
     searchCity: citiesActions.searchCity,
+
 }
 
 

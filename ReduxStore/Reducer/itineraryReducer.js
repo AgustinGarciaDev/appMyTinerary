@@ -28,6 +28,13 @@ const itineraryReducer = (state = inicialState, action) => {
             }
         }
             break
+        case 'LIMPIAR_ITINERARY': {
+            return {
+                ...state,
+                itinerary: [],
+            }
+        }
+            break
         default:
             return state
     }

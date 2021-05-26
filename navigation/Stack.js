@@ -25,6 +25,7 @@ export const HomeStack = ({ navigation }) => {
 
                         />
                     ),
+                    title: ''
                 }}
             />
         </stack.Navigator>
@@ -46,6 +47,7 @@ export const CitiesStack = ({ navigation }) => {
 
                         />
                     ),
+                    title: ''
                 }}
 
             />
@@ -62,6 +64,7 @@ export const CitiesStack = ({ navigation }) => {
 
                         />
                     ),
+                    title: ''
                 }}
             />
             <stack.Screen name="City" component={City}
@@ -77,6 +80,7 @@ export const CitiesStack = ({ navigation }) => {
 
                         />
                     ),
+                    title: ''
                 }}
 
             />
@@ -99,6 +103,7 @@ export const SignInStack = ({ navigation }) => {
 
                         />
                     ),
+                    title: ''
                 }} />
         </stack.Navigator>
     )
@@ -120,6 +125,7 @@ export const SignUpStack = ({ navigation }) => {
 
                         />
                     ),
+                    title: ''
                 }}
             />
         </stack.Navigator>

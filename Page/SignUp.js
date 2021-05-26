@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, ImageBackground, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, ImageBackground, Alert, TouchableOpacity } from 'react-native';
 import { connect } from "react-redux";
 import SelectPicker from 'react-native-form-select-picker';
 import { useState } from 'react';
@@ -43,7 +43,6 @@ const SignUp = (props) => {
                 type: 'error',
                 position: 'bottom',
             });
-            console.log("hola")
         } else {
             const respuesta = await props.createUser(user)
             if (respuesta) {
@@ -109,60 +108,77 @@ const SignUp = (props) => {
     }
 
     return (
-        <ImageBackground style={styles.containerForm} source={{ uri: "http://baravdg.com/wp-content/uploads/2021/04/pexels-julius-silver-753337.jpg" }}>
-            <View style={styles.form}>
-                <Text style={styles.titleForm}>Sign Up!</Text>
-                <View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="First Name"
-                        value={infoUser.name}
-                        onChangeText={(e) => changeValueInput(e, 'firstName')}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Last Name"
-                        value={infoUser.lastName}
-                        onChangeText={(e) => changeValueInput(e, 'lastName')}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Email"
-                        value={infoUser.email}
-                        onChangeText={(e) => changeValueInput(e, 'email')}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Pic Url"
-                        value={infoUser.userPic}
-                        onChangeText={(e) => changeValueInput(e, 'userPic')}
-                    />
-                    <SelectPicker default="Choose a country"
-                        onValueChange={(e) => changeValueInput(e, "country")}
-                        placeholderStyle={{ color: 'black' }}
-                        label="Country"
-                        style={styles.input}
-                        placeholder='Country'
+        <ScrollView>
+            <ImageBackground style={styles.containerForm} source={{ uri: "http://baravdg.com/wp-content/uploads/2021/04/pexels-julius-silver-753337.jpg" }}>
+                <View style={styles.form}>
+                    <Text style={styles.titleForm}>Sign Up!</Text>
+                    <View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="First Name"
+                            value={infoUser.name}
+                            onChangeText={(e) => changeValueInput(e, 'firstName')}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Last Name"
+                            value={infoUser.lastName}
+                            onChangeText={(e) => changeValueInput(e, 'lastName')}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Email"
+                            value={infoUser.email}
+                            onChangeText={(e) => changeValueInput(e, 'email')}
+                        />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Pic Url"
+                            value={infoUser.userPic}
+                            onChangeText={(e) => changeValueInput(e, 'userPic')}
+                        />
+                        <SelectPicker default="Choose a country"
+                            onValueChange={(e) => changeValueInput(e, "country")}
+                            placeholderStyle={{ color: 'black' }}
+                            label="Country"
+                            style={styles.input}
+                            placeholder='Country'
+                        >
+                            {countries.map((country) => (<SelectPicker.Item label={country.name} value={country.name} key={country.name} />))}
+                        </SelectPicker>
+                        <TextInput
+                            style={styles.input}
+                            value={infoUser.password}
+                            secureTextEntry={true}
+                            placeholder="Password"
+                            onChangeText={(e) => changeValueInput(e, 'password')}
+                        />
+                    </View>
+                    <TouchableOpacity
+                        onPress={sendForm}
+                        style={styles.button}
+                        activeOpacity={.7}
                     >
-                        {countries.map((country) => (<SelectPicker.Item label={country.name} value={country.name} key={country.name} />))}
-                    </SelectPicker>
-                    <TextInput
-                        style={styles.input}
-                        value={infoUser.password}
-                        secureTextEntry={true}
-                        placeholder="Password"
-                        onChangeText={(e) => changeValueInput(e, 'password')}
-                    />
+                        <Text style={styles.text}>Sign Up</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={logIn}
+                        style={styles.buttonFacebook}
+                        activeOpacity={.7}
+                    >
+                        <Icon style={{ marginRight: 10 }} name='facebook' type='font-awesome-5' size={35} color='white' />
+                        <Text style={styles.text}>Sign up with Facebok</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonSignIn}
+                        activeOpacity={.7}
+                        onPress={() => { props.navigation.navigate('SignIn') }}
+                    >
+                        <Text style={styles.textSignIn}>Already a member? Sign In</Text>
+                    </TouchableOpacity >
                 </View>
-                <Pressable onPress={sendForm} style={styles.button} >
-                    <Text style={styles.text}>Sign Up</Text>
-                </Pressable>
-                <Pressable onPress={logIn} style={styles.buttonFacebook} >
-                    <Icon style={{ marginRight: 10 }} name='facebook' type='font-awesome-5' size={35} color='white' />
-                    <Text style={styles.text}>Sign up with Facebok</Text>
-                </Pressable>
-            </View>
-        </ImageBackground>
+            </ImageBackground>
+        </ScrollView>
     )
 }
 const styles = StyleSheet.create({
@@ -179,7 +195,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         width: "70%",
-        borderRadius: 20
+        borderRadius: 20,
+        margin: 30
 
     },
     titleForm: {
@@ -229,7 +246,27 @@ const styles = StyleSheet.create({
         height: 50,
         zIndex: 1,
         flexDirection: 'row',
-        marginBottom: 50
+        marginBottom: 10
+    },
+    buttonSignIn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 4,
+        marginTop: 10,
+        borderStyle: 'solid',
+        borderColor: 'black',
+        width: "80%",
+        height: 50,
+        zIndex: 1,
+        marginBottom: 20,
+        borderWidth: 2
+    },
+    textSignIn: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'black',
     }
 
 

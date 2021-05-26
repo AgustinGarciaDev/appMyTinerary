@@ -20,7 +20,6 @@ const citiesActions = {
 
         return (dispatch, getState) => {
             dispatch({ type: 'FILTRAR_CIUDADES', payload: valorInput })
-            console.log(e)
         }
 
     },

@@ -3,9 +3,6 @@ import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 const Carrusel = () => {
-
-
-
     const city = [
         { id: 1, nombre: "Paris", url: 'http://baravdg.com/wp-content/uploads/2021/04/pexels-thorsten-technoman-338515-scaled.jpg' },
         { id: 2, nombre: "Queenstown", url: 'http://baravdg.com/wp-content/uploads/2021/04/pexels-ketan-kumawat-724963-scaled.jpg' },

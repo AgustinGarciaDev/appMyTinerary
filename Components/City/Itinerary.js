@@ -86,6 +86,15 @@ const Itinerary = (props) => {
 
     }, [heartLike]);
 
+
+    useEffect(() => {
+        return (
+            function limpiando() {
+                props.cleanItinerary()
+            }
+        )
+    }, [])
+
     return (
         <ScrollView style={styles.containerItinerary}>
             <View>
@@ -273,6 +282,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     likeHeart: ItineraryAction.likeHeart,
+    cleanItinerary: ItineraryAction.cleanItinerary
 }
 
 

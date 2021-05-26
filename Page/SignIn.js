@@ -24,7 +24,11 @@ const SignIn = (props) => {
 
         let user = e ? infoUser : facebokUser
         if (user.email === "" || user.password === "") {
-            console.log("The fields must be complete")
+            Toast.show({
+                text1: error.message,
+                type: 'error',
+                position: 'The fields must be complete',
+            })
         } else {
             const respuesta = await props.signInUser(user)
             if (respuesta) {
@@ -108,13 +112,28 @@ const SignIn = (props) => {
                         onChangeText={(e) => changeValueInput(e, 'password')}
                     />
                 </View>
-                <Pressable onPress={sendForm} style={styles.button} >
+                <TouchableOpacity
+                    onPress={sendForm}
+                    style={styles.button}
+                    activeOpacity={.7}
+                >
                     <Text style={styles.text}>Sign In</Text>
-                </Pressable>
-                <Pressable onPress={logIn} style={styles.buttonFacebook} >
+                </TouchableOpacity >
+                <TouchableOpacity
+                    onPress={logIn}
+                    style={styles.buttonFacebook}
+                    activeOpacity={.7}
+                >
                     <Icon style={{ marginRight: 10 }} name='facebook' type='font-awesome-5' size={35} color='white' />
                     <Text style={styles.text}>Sign in with Facebok</Text>
-                </Pressable>
+                </TouchableOpacity >
+                <TouchableOpacity
+                    style={styles.buttonSignIn}
+                    activeOpacity={.7}
+                    onPress={() => { props.navigation.navigate('SignUp') }}
+                >
+                    <Text style={styles.textSignIn}>Not a member? Sign up now</Text>
+                </TouchableOpacity >
             </View>
         </ImageBackground>
 
@@ -186,7 +205,27 @@ const styles = StyleSheet.create({
         height: 50,
         zIndex: 1,
         flexDirection: 'row',
-        marginBottom: 50
+        marginBottom: 10
+    },
+    buttonSignIn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 4,
+        marginTop: 10,
+        borderStyle: 'solid',
+        borderColor: 'black',
+        width: "80%",
+        height: 50,
+        zIndex: 1,
+        marginBottom: 20,
+        borderWidth: 2
+    },
+    textSignIn: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'black',
     }
 
 

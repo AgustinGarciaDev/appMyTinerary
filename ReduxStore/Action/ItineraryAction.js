@@ -21,6 +21,11 @@ const itineraryActions = {
             }
         }
     },
+    cleanItinerary: () => {
+        return (dispatch, getState) => {
+            dispatch({ type: 'LIMPIAR_ITINERARY' })
+        }
+    },
 
     addComment: (comentario, id) => {
         return async (dispatch, getState) => {

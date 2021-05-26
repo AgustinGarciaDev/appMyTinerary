@@ -1,27 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, ScrollView, ImageBackground } from 'react-native';
 import { connect } from "react-redux";
-import itineraryActions from '../ReduxStore/Action/ItineraryAction';
+import ItineraryAction from '../ReduxStore/Action/ItineraryAction';
 import Itinerary from '../Components/City/Itinerary';
-/* import LottieView from 'lottie-react-native'; */
+import ItineraryNotFound from '../Page/ItineraryNotFound'
+import LoadingCity from '../Components/City/LoadingCity'
+
 const City = (props) => {
 
-    /*    const animation = React.useRef(null); */
     const [foundCity, setFoundCity] = useState({
         loading: true,
         city: null
     })
 
-
     useEffect(() => {
-        /*  animation.current.play() */
         const idCity = props.route.params.id
         if (!(props.cities.length === 0)) {
             let searchCity = props.cities.find(ciudad => ciudad._id === idCity)
             setFoundCity({ loading: false, city: searchCity })
         }
         props.loadItinerary(idCity)
+
     }, [])
 
 
@@ -30,7 +29,11 @@ const City = (props) => {
 
     if (loading) {
 
-        return null
+        return (
+            <View style={styles.containerLoading}>
+                <LoadingCity />
+            </View>
+        )
     }
 
     return (
@@ -43,7 +46,11 @@ const City = (props) => {
                 </View>
             </ImageBackground>
             <View>
-                {props.itinerary.map(item => <Itinerary key={item._id} itinerary={item} />)}
+                {
+                    props.itinerary.length === 0
+                        ? <ItineraryNotFound />
+                        : props.itinerary.map(item => <Itinerary key={item._id} itinerary={item} />)
+                }
             </View>
         </ScrollView>
     )
@@ -70,7 +77,13 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    containerLoading: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
     }
+
 
 });
 
@@ -85,7 +98,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
 
-    loadItinerary: itineraryActions.loadItinerary
+    loadItinerary: ItineraryAction.loadItinerary
 }
 
 

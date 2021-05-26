@@ -16,7 +16,6 @@ const userActions = {
                 await AsyncStorage.setItem('token', response.data.respuesta.token)
                 dispatch({ type: 'LOGUEAR_USUARIO', payload: response.data.success ? response.data.respuesta : null })
             } catch (error) {
-                console.log("error al crear cuenta")
                 if (error.response) {
                     /*
                      * The request was made and the server responded with a
