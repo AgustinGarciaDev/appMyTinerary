@@ -1,5 +1,5 @@
-# MYTINERARY MOBILE ✈
-Aplicación nativa de MyTinerary.
+# EXPLORE APP 
+Aplicación nativa de una e-commerce llamada Explore.
 <br/>
 ![WhatsApp Video 2021-06-10 at 15 54 30 (1)](https://user-images.githubusercontent.com/66225450/121582345-4539df80-ca05-11eb-8ea2-fa6e69c738ab.gif)
 
