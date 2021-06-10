@@ -3,7 +3,7 @@
 Aplicación nativa de MyTinerary.
 
 <br/>
-![WhatsApp Video 2021-06-10 at 15 54 30 (1)](https://user-images.githubusercontent.com/66225450/121571120-ff771a00-c9f8-11eb-8191-90380fe0527a.gif)
+![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/66225450/121566637-15cea700-c9f4-11eb-9297-8e4c3ca871e8.gif)
 
 # Trabajo realizado
 Una app desarrollada en cinco semanas, realizando dailies diarias para poder resolver los diferentes inconvenientes ya que fue un challenge para el bootcamp cursado en MindHub.
