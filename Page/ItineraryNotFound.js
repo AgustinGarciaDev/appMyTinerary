@@ -11,12 +11,9 @@ const ItineraryNotFound = () => {
                     textAlign: 'center',
                     fontSize: 20
                 }}>
-                This city still has no Itinerary
-                </Text>
+                {/* This city still has no Itinerary */}
+            </Text>
             <LottieView
-                /*   ref={(animation) => {
-                      animation.play()
-                  }} */
                 style={styles.notFoundLottie}
                 source={require("../assets/animation/61372-404-error-not-found.json")}
                 autoPlay

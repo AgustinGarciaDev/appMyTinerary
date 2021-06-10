@@ -56,7 +56,7 @@ const SignIn = (props) => {
     async function logIn() {
         try {
             await Facebook.initializeAsync({
-                appId: '768205227393989',
+                appId: process.env.REACT_APP_FACEBOOK_ID,
             });
             const {
                 type,
@@ -70,7 +70,7 @@ const SignIn = (props) => {
                 const dataUser = await response.json()
                 sendForm(null, {
                     email: !dataUser.email ? 'correoPrueba@gmail.com' : dataUser.email,
-                    password: "Hola1234!",
+                    password: process.env.REACT_APP_USER_PASS,
                 })
 
 

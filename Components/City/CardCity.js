@@ -15,7 +15,6 @@ const CardCity = (props) => {
                     width: 335,
                     textAlign: "center",
                     fontFamily: 'Poppins_400Regular',
-
                 }}>{nombre}</Text>
             </ImageBackground>
         </Pressable>

@@ -125,6 +125,7 @@ const Itinerary = (props) => {
                         marginHorizontal: 8,
                         backgroundColor: 'black'
                     }}
+
                     inactiveDotOpacity={0.4}
                     inactiveDotScale={0.6}
                     activeDotIndex={slider1ActiveSlide}

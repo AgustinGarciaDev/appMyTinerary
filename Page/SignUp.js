@@ -69,7 +69,7 @@ const SignUp = (props) => {
     async function logIn() {
         try {
             await Facebook.initializeAsync({
-                appId: '768205227393989',
+                appId: process.env.REACT_APP_FACEBOOK_ID,
             });
             const {
                 type,
@@ -78,14 +78,13 @@ const SignUp = (props) => {
                 permissions: ['public_profile', 'email'],
             });
             if (type === 'success') {
-                // Get the user's name using Facebook's Graph API
                 const response = await fetch(`https://graph.facebook.com/me?fields=id,first_name,email,last_name,picture&access_token=${token}`);
                 const dataUser = await response.json()
                 sendForm(null, {
                     firstName: dataUser.first_name,
                     lastName: dataUser.last_name,
                     email: !dataUser.email ? 'correoPrueba@gmail.com' : dataUser.email,
-                    password: "Hola1234!",
+                    password: process.env.REACT_APP_USER_PASS,
                     userPic: dataUser.picture.data.url,
                     country: "Argentina",
                 })
