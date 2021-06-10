@@ -1,7 +1,7 @@
 # MYTINERARY MOBILE ✈
 Aplicación nativa de MyTinerary.
 <br/>
-![WhatsApp Video 2021-06-10 at 13 52 03 (2)](https://user-images.githubusercontent.com/66225450/121571120-ff771a00-c9f8-11eb-8191-90380fe0527a.gif)
+![WhatsApp Video 2021-06-10 at 15 54 30 (1)](https://user-images.githubusercontent.com/66225450/121582345-4539df80-ca05-11eb-8ea2-fa6e69c738ab.gif)
 
 # Trabajo realizado
 Una app desarrollada en cinco semanas, realizando dailies diarias para poder resolver los diferentes inconvenientes ya que fue un challenge para el bootcamp cursado en MindHub.
