@@ -1,5 +1,5 @@
 # MYTINERARY MOBILE ✈
-Version mobile de MyTinerary.
+Aplicación nativa de MyTinerary.
 # Trabajo realizado
 Una app desarrollada en cinco semanas, realizando dailies diarias para poder resolver los diferentes inconvenientes ya que fue un challenge para el bootcamp cursado en MindHub.
 # Comenzando  🚀
