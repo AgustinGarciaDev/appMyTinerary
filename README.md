@@ -1,10 +1,12 @@
-# MYTINERARY MOBILE ✈
+# MyTinerary MOBILE ✈
 Aplicación nativa de MyTinerary.
 <br/>
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/66225450/121566637-15cea700-c9f4-11eb-9297-8e4c3ca871e8.gif)
 
 # Trabajo realizado
-Una app desarrollada en cinco semanas, realizando dailies diarias para poder resolver los diferentes inconvenientes ya que fue un challenge para el bootcamp cursado en MindHub.
+
+Una app desarrollada en el lapso de una semana, durante el coding bootcamp de MindHub 2021.
+
 # Comenzando  🚀
 ```
 # Instalar dependencias para el cliente
@@ -14,13 +16,14 @@ npm install
 expo start
 
 # Visualizar la app
-Escanear codigo QR provisto en metro bundler en tu celular bajo app expo instalada previamente 
-o elegir opcion: run in browser. (puede que no este 100% optimizada ya que el navegador no 
+Escanear código QR provisto en metro bundler en tu celular bajo app expo instalada previamente 
+o elegir opción: "run in browser". (puede que no esté 100% optimizada ya que el navegador no 
 funciona de la misma manera que un dispositivo móvil)
+
 ```
 # Construido con 🛠️
 - Node.js - Entorno de ejecución para JavaScript
-- Express - Libreria de Node utilizada en la construccion de la API
+- Express - Librería de Node utilizada en la construccion de la API
 - MongoDB - Base de datos utilizada
 - Mongoose - Modelado de objetos (Object Document Mapper (ODM))
 - Bcrypt - Librería para hashear contraseñas
@@ -30,5 +33,5 @@ funciona de la misma manera que un dispositivo móvil)
 - Redux - Utilizado para trabajar con un estado global
 
 # Expresiones de Gratitud 🎁
-Se agradece a Fernando Biaus por la mentoría y la dedicación. <br/>
+Se agradece a Fernando Biaus por la mentoría y  dedicación. <br/>
 También a Mindhub por la oportunidad de crecer como developers.
