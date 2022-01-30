@@ -1,30 +1,24 @@
 const initialState = {
-
-    usuarioStatus: null,
-}
+  usuarioStatus: null,
+};
 const userReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "LOGUEAR_USUARIO":
+      return {
+        ...state,
+        usuarioStatus: action.payload,
+      };
+      break;
+    case "DESLOGUEAR_USUARIO":
+      return {
+        ...state,
+        usuarioStatus: null,
+      };
+      break;
 
-    switch (action.type) {
+    default:
+      return state;
+  }
+};
 
-        case 'LOGUEAR_USUARIO':
-            return {
-                ...state,
-                usuarioStatus: action.payload
-            }
-            break
-        case 'DESLOGUEAR_USUARIO':
-            return {
-                ...state,
-                usuarioStatus: null
-            }
-            break
-
-        default:
-            return state
-
-    }
-}
-
-
-
-export default userReducer
+export default userReducer;
