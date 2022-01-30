@@ -1,7 +1,7 @@
 # MyTinerary MOBILE ✈
 Aplicación nativa de MyTinerary.
 <br/>
-![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/66225450/121566637-15cea700-c9f4-11eb-9297-8e4c3ca871e8.gif)
+![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/66225450/151716532-0578ff5a-e769-4e3a-b0f5-5ea228e158db.gif)
 
 # Trabajo realizado
 
