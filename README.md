@@ -13,7 +13,7 @@ Una app desarrollada en el lapso de una semana, durante el coding bootcamp de Mi
 npm install
 
 # Correr la app
-expo start
+expo start --android
 
 # Visualizar la app
 Escanear código QR provisto en metro bundler en tu celular bajo app expo instalada previamente 
